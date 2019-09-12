@@ -30,6 +30,7 @@ public class LoginTestsUNF_015 extends LoginTests {
 	  POMUNF_015.GroupBy();
 	  POMUNF_015.orderStatus();
 	  POMUNF_015.clickOnFilter();
+	  //taking screenshot
 	  screenShot = new ScreenShot(driver); 
 	  screenShot.captureScreenShot();
   }
