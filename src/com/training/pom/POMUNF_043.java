@@ -1,5 +1,7 @@
 package com.training.pom;
 
+import static org.testng.Assert.assertTrue;
+
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -9,7 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 
 public class POMUNF_043 {
 	
@@ -36,7 +38,10 @@ private WebDriver driver;
 	
 	@FindBy(xpath="//input[@name='quantity']")
 	private WebElement enterCredential;
-
+	
+	
+	@FindBy(xpath="//*[@class='fa fa-save']")
+	private WebElement saveChanges;
 	
 	
 	public void clickCategories()
@@ -59,45 +64,74 @@ private WebDriver driver;
     	Thread.sleep(3000);
     }
     
-    public void dataTab() throws InterruptedException
+    public void dataTab() 
     {
     	Actions action = new Actions(driver);
     	action.moveToElement(selectDataTab).click().perform();
-    	Thread.sleep(3000);
+    	//Thread.sleep(3000);
     	System.out.println("data tab selected");
     }
     
-    public void clearExistingText() throws InterruptedException {
-        quantity.clear();
-        Thread.sleep(3000);
+    public void clearExistingText() throws InterruptedException 
+    {
+    	
+    	//To verify if textbox is enabled
+    	WebElement ele =  driver.findElement(By.xpath("//input[@name='quantity']"));
+    	if( ele.isEnabled())
+    	{
+    		System.out.println("Textbox is Enabled");
+    		ele.clear();
+    		}
+    	else
+    		{
+    		System.out.println("Textbox is Disabled");
+    		Thread.sleep(3000);	
+           
+    	}  
         
+    	
       }
     
+    
     public void enterValidCredentials() throws InterruptedException
-    {
-    	enterCredential.sendKeys(String.valueOf(100));
-    	driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-    	//Thread.sleep(3000);
-    	
+    {   
+    	enterCredential.sendKeys(String.valueOf(134));
+       	Thread.sleep(1000);
+    	/*enterCredential.sendKeys(String.valueOf(100));
+    	Assert.assertEquals(driver.findElement(By.xpath("//input[@name='quantity']")).getText(),"1");*/
     }
+    
     
     public void displayDefaultValues() throws InterruptedException
     {
-    	/*WebElement link = driver.findElement(By.xpath("//a[@href='#tab-links']"));
-    	driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
-    	Actions act = new Actions(driver);
-		act.click(link).build().perform();*/
-    	
-	
-		WebElement link = driver.findElement(By.xpath("//a[@href='#tab-links']"));
-    	//driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
-		Thread.sleep(3000);
+    	WebElement link = driver.findElement(By.xpath("//a[@href='#tab-links']"));
+    	Thread.sleep(3000);
+    	//Used Actions to pass through multiple tabs
     	Actions action = new Actions(driver);
 		action.sendKeys(link,Keys.TAB).build().perform();
-		
-			}
+		action.sendKeys(driver.findElement(By.xpath("//a[@href='#tab-option']")), Keys.TAB).build().perform();
+		Thread.sleep(3000);
+		action.sendKeys(driver.findElement(By.xpath("//a[@href='#tab-discount']")), Keys.TAB).build().perform();
+		Thread.sleep(3000);
+		action.sendKeys(driver.findElement(By.xpath("//a[@href='#tab-image']")), Keys.TAB).build().perform();
+		Thread.sleep(3000);
+		action.sendKeys(driver.findElement(By.xpath("//a[@href='#tab-design']")), Keys.TAB).build().perform();
+		}
     	
-    	}
+    	
 
+     public void save()
+     {
+    	 saveChanges.click();
+    	 //Applied asserts to verify if success message is correct or not
+    	 
+    	 String expectedMessage = "Success: You have modified products!";
+    	 String message = driver.findElement(By.xpath("//*[@class='alert alert-success']")).getText();
+    	 String [] arr = message.split("\n");
+    	 String ActualValue = arr[0];
+    	 System.out.println(ActualValue);
+         Assert.assertEquals(ActualValue, expectedMessage);
+     	
+     }
 
-
+}

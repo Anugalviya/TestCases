@@ -42,8 +42,11 @@ public class LoginPOMUNF_015 {
 	@FindBy(xpath="//input[@name='filter_date_end']")
 	private WebElement EndDate;
 	
-	@FindBy(xpath="//*[@id=\"content\"]/div[2]/div/div[2]/div[1]/div/div[1]/div[2]/div/span/button/i")
+	@FindBy(xpath="//div[@id='content']//div[2]/div/div[2]/div/div/div/div[2]/div/span/button/i")
 	private WebElement clickOnDatePicker1;
+	
+	@FindBy(xpath="//tbody/tr/td[@class='day active today']")
+	private WebElement endDateSelected;
 	
 	@FindBy(xpath="//*[@id=\"input-group\"]")
 	private WebElement SelectGroupBy;
@@ -82,7 +85,7 @@ public class LoginPOMUNF_015 {
 	{
 		clickOnDatePicker.click();
 		
-		// tried using specific date using datepicker, a simple entry of date is working need to enhance it more.
+		// tried using specific date using datepicker, a date of choice is set and is selected from date picker.
 		String setDateStr = "2019-06-30";
 		String currDateStr = driver.findElement(By.xpath("/html/body/div[2]/div/div[1]/table/thead/tr[1]/th[2]")).getText();
 		
@@ -126,18 +129,25 @@ public class LoginPOMUNF_015 {
 		driver.findElement(By.xpath("//div/div/table/tbody/tr/td[@class='day old']")).click();
 }
 	
-	public void endDateSelected()
+	public void endDateSel()
 	{
 		EndDate.click();
-		System.out.println("Date End selected");
+		System.out.println("Date End picker selected");
 	}
 	
-	public void clickDatePicker1() throws ParseException, InterruptedException
+	public void clickOnEndDatePicker()
 	{
 		clickOnDatePicker1.click();
-		System.out.println("date picker selected for Date End");
+		
 	}
 	
+	public void endDatePicked() throws InterruptedException
+	{
+		Thread.sleep(3000);
+		endDateSelected.click();
+		
+		System.out.println("end date is selected successfully");
+	}
 
 	public void GroupBy() throws InterruptedException
 	{
@@ -147,6 +157,10 @@ public class LoginPOMUNF_015 {
 		Thread.sleep(2000);
 		List<WebElement> data = sel.getOptions();
 		System.out.println(data.size());
+		for(int i=0;i<data.size();i++)
+		{
+			System.out.println(data.get(i).getText());
+		}
 		sel.selectByIndex(1);
 		
 	}
@@ -160,10 +174,10 @@ public class LoginPOMUNF_015 {
 		Select sel = new Select(orderStat);
 		List<WebElement> data = sel.getOptions();
 		System.out.println(data.size());
-		/*for(int i=0;i<data.size();i++)
+		for(int i=0;i<data.size();i++)
 		{
 			System.out.println(data.get(i).getText());
-		}*/
+		}
 		sel.selectByIndex(8);
 		Thread.sleep(2000);
 	}

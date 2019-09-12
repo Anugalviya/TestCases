@@ -2,7 +2,6 @@ package com.training.sanity.tests;
 
 import org.testng.annotations.Test;
 import com.training.generics.ScreenShot;
-
 import com.training.pom.POMUNF_043;
 
 
@@ -23,7 +22,9 @@ public class TestsUNF_043 extends LoginTests
 	  POMUNF_043.clearExistingText();
 	  POMUNF_043.enterValidCredentials();
 	  POMUNF_043.displayDefaultValues();
-	  
+	  POMUNF_043.save();
+	  screenShot = new ScreenShot(driver); 
+	  screenShot.captureScreenShot();
 
   }
 }

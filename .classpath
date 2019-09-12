@@ -21,5 +21,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/SeleniumJar/joda-time-2.0.jar/joda-time-2.0.jar"/>
+	<classpathentry kind="lib" path="C:/SeleniumJar/JXL/log4j-1.2.14.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

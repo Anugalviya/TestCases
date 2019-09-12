@@ -14,7 +14,7 @@ public class LoginTestsUNF_015 extends LoginTests {
 	private ScreenShot screenShot;
 	
   @Test
-  public void testMethod() throws InterruptedException, ParseException
+  public void testMethod_UNF015() throws InterruptedException, ParseException
   {
 	  System.out.println("I am in LoginTestsUNF_015 Class");
 	  POMUNF_015 = new LoginPOMUNF_015(driver);
@@ -24,10 +24,13 @@ public class LoginTestsUNF_015 extends LoginTests {
 	  POMUNF_015.clickOrders();
 	  POMUNF_015.startDateSelected();
 	  POMUNF_015.clickDatePicker();
-	  POMUNF_015.endDateSelected();
+	  POMUNF_015.endDateSel();
+	  POMUNF_015.clickOnEndDatePicker();
+	  POMUNF_015.endDatePicked();
 	  POMUNF_015.GroupBy();
 	  POMUNF_015.orderStatus();
 	  POMUNF_015.clickOnFilter();
-	  
+	  screenShot = new ScreenShot(driver); 
+	  screenShot.captureScreenShot();
   }
 }
